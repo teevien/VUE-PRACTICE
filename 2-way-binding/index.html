@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2 Way Binding</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+</head>
+
+<style>
+    /******************************
+           DYNAMIC STYLING
+    *******************************/
+    .demo {
+        width:100px;
+        height:100px;
+        background-color:gray;
+        display:inline-block;
+        margin:10px;
+    }
+
+    .red {
+        background:red;
+    }
+
+    .green {
+        background: green;
+    }
+
+    .blue {
+        background: blue;
+    }
+</style>
+<body>
+    <!------------------------------------------------------------------
+                TWO WAY BINDING
+    -------------------------------------------------------------------->
+    <!-- <div id="app">
+        <input type="text" v-model="name">
+        <p>{{ name }}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                name: 'Teresa'
+            }
+        });
+    </script> -->
+
+    <!------------------------------------------------------------------
+                REACTING TO CHANGES IN COMPUTED PROPS
+    -------------------------------------------------------------------->
+    <!-- <div id="app">
+       
+        <button v-on:click="counter++">Increase</button> 
+        <button v-on:click="counter--">Decrease</button>
+       
+        <button v-on:click="secondCounter++">Increase Second Counter</button>
+        <p>Counter: {{ counter }}</p>
+        
+        <p>Result: {{ result() }} | {{ output }}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                counter: 0,
+                // result: ''
+                secondCounter: 0
+            },
+            /*methods: {
+                increase: function() {
+                    this.counter++;
+                    this.result= this.counter > 5 ? 'Greater Than 5' : 'Smaller Than 5' // WE DON'T REPEAT OURSELVES
+                },
+                decrease: function() {
+                    this.counter--;
+                    this.result= this.counter > 5 ? 'Greater Than 5' : 'Smaller Than 5'
+                }
+            } */
+            computed: {
+                output: function() {
+                    console.log('computed')
+                    return this.counter > 5 ? 'Greater Than 5' : 'Smaller Than 5'
+                }
+            },
+            methods: {
+                result: function() {
+                    console.log('method')
+                    return this.counter > 5 ? 'Greater Than 5' : 'Smaller Than 5'
+                }
+            },
+            watch: {
+                counter: function(value) {
+                    var vm = this;
+                    setTimeout(function() {
+                        vm.counter = 0;
+                    }, 2000)
+                }
+            } 
+        })
+    </script>  -->
+    <!------------------------------------------------------------------
+                DYNAMIC STYLING WITH CSS CLASSES
+    -------------------------------------------------------------------->   
+    <div id="app">
+        <div class="demo" @click="attachRed = !attachRed" :class=divClasses></div>
+        <div class="demo" :class="{'red': attachRed}"></div>
+        <div class="demo" :class="[color, {'red': attachRed}]"></div> 
+        <input type="text" v-model="color">
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                attachRed: false,
+                color: 'green'
+            },
+            computed: {
+                divClasses: function() {
+                    return {
+                        red: this.attachRed,
+                        blue: !this.attachRed
+                    }
+                }
+            }
+        })
+    </script>
+
+    <!------------------------------------------------------------------
+                DYNAMIC STYLING WITHOUT CSS CLASSES
+    -------------------------------------------------------------------->   
+    <!-- <div id="app">
+        <div class="demo" :style="{backgroundColor: color}"></div>
+        <div class="demo" :style="myStyle"></div>
+        <div class="demo" :style="[myStyle, {height: width + 'px'}]"></div>
+        <hr>
+        <input type="text" v-model="color">
+        <input type="text" v-model="width">
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                color: 'gray',
+                width: 100
+            },
+            computed: {
+                myStyle: function() {
+                    return {
+                        backgroundColor: this.color,
+                        width: this.width + 'px'
+                    }
+                }
+            }
+        })
+    </script> -->
+</body>
+</html>
